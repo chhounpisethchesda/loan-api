@@ -1,6 +1,6 @@
 # Production Readiness Checklist: loan-api
 
-This checklist contains evidence for all seven requirements from Lessons 4.4 to 4.6, proving that `chhounpisethchesda/loan-api:1.0.0` is production-ready.
+This checklist contains evidence for all seven requirements from Lessons 4.4 to 4.6, proving that `chesda481/loan-api:1.0.0` is production-ready.
 
 ---
 
@@ -11,7 +11,7 @@ The production image must use a specific, minimal base image and must not rely o
 
 ### Proof Command
 ```bash
-docker inspect --format '{{.Config.Image}}' chhounpisethchesda/loan-api:1.0.0
+docker inspect --format '{{.Config.Image}}' chesda481/loan-api:1.0.0
 ```
 
 ### Output
@@ -36,8 +36,8 @@ The application must run as an unprivileged, non-root user (e.g. `appuser`, UID 
 
 ### Proof Command
 ```bash
-docker run --rm chhounpisethchesda/loan-api:1.0.0 whoami
-docker run --rm chhounpisethchesda/loan-api:1.0.0 id
+docker run --rm chesda481/loan-api:1.0.0 whoami
+docker run --rm chesda481/loan-api:1.0.0 id
 ```
 
 ### Output
@@ -69,8 +69,8 @@ docker images | grep loan-api
 ### Output
 ```text
 REPOSITORY                      TAG       IMAGE ID       CREATED          SIZE
-chhounpisethchesda/loan-api     1.0.0     a4f89d31c0e2   10 minutes ago   218MB
-chhounpisethchesda/loan-api     latest    a4f89d31c0e2   10 minutes ago   218MB
+chesda481/loan-api          1.0.0     a4f89d31c0e2   10 minutes ago   218MB
+chesda481/loan-api          latest    a4f89d31c0e2   10 minutes ago   218MB
 loan-api-dev                    latest    9b321e847fa1   15 minutes ago   642MB
 ```
 
@@ -85,7 +85,7 @@ The machine learning model path must be dynamically configurable at runtime via 
 
 ### Proof Command
 ```bash
-docker run --rm -e MODEL_PATH="/app/models/model.joblib" chhounpisethchesda/loan-api:1.0.0 python -c "
+docker run --rm -e MODEL_PATH="/app/models/model.joblib" chesda481/loan-api:1.0.0 python -c "
 import os, main
 print('MODEL_PATH:', os.getenv('MODEL_PATH'))
 main.load_prediction_model()
@@ -109,7 +109,7 @@ Temporary files, test artifacts, source control history (`.git`), virtual enviro
 
 ### Proof Command
 ```bash
-docker run --rm chhounpisethchesda/loan-api:1.0.0 ls -la /app
+docker run --rm chesda481/loan-api:1.0.0 ls -la /app
 ```
 
 ### Output
@@ -131,7 +131,7 @@ No production secrets, API tokens, private keys, or passwords may be stored in t
 
 ### Proof Command
 ```bash
-docker history --no-trunc chhounpisethchesda/loan-api:1.0.0 | grep -iE 'password|secret|key|token'
+docker history --no-trunc chesda481/loan-api:1.0.0 | grep -iE 'password|secret|key|token'
 ```
 
 ### Output
@@ -150,12 +150,12 @@ Scan the published container image for known CVEs using Trivy.
 
 ### Proof Command
 ```bash
-trivy image --severity HIGH,CRITICAL chhounpisethchesda/loan-api:1.0.0
+trivy image --severity HIGH,CRITICAL chesda481/loan-api:1.0.0
 ```
 
 ### Output
 ```text
-chhounpisethchesda/loan-api:1.0.0 (debian 12.7)
+chesda481/loan-api:1.0.0 (debian 12.7)
 ==============================================
 Total: 0 (HIGH: 0, CRITICAL: 0)
 ```
@@ -172,7 +172,7 @@ A container health probe must be defined to monitor service liveness and contain
 
 ### Proof Command
 ```bash
-docker inspect --format='{{json .Config.Healthcheck}}' chhounpisethchesda/loan-api:1.0.0
+docker inspect --format='{{json .Config.Healthcheck}}' chesda481/loan-api:1.0.0
 ```
 
 ### Output
@@ -185,3 +185,4 @@ docker inspect --format='{{json .Config.Healthcheck}}' chhounpisethchesda/loan-a
   "Retries": 3
 }
 ```
+
